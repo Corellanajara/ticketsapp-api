@@ -13,7 +13,7 @@ exports.routesConfig = function (app) {
     ]);
     app.get('/users', [
         ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
+        PermissionMiddleware.minimumPermissionLevelRequired(FREE),
         UsersController.list
     ]);
     app.get('/users/:userId', [
@@ -25,7 +25,7 @@ exports.routesConfig = function (app) {
     app.patch('/users/:userId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(FREE),
-        PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
+        //PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
         UsersController.patchById
     ]);
     app.delete('/users/:userId', [

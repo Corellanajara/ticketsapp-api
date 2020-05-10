@@ -9,6 +9,9 @@ exports.insert = (req, res) => {
     if(!req.body.servidores){
       req.body.servidores = [];
     }
+    var empresa = req.headers.empresa;
+    req.body.empresa = empresa;
+    console.log(req.body);
     UserModel.createUser(req.body)
         .then((result) => {
             res.status(201).send({id: result._id});
@@ -16,7 +19,8 @@ exports.insert = (req, res) => {
 };
 
 exports.list = (req, res) => {
-    let limit = req.query.limit && req.query.limit <= 100 ? parseInt(req.query.limit) : 10;
+    var empresa = req.headers.empresa;
+    let limit = req.query.limit && req.query.limit <= 1000 ? parseInt(req.query.limit) : 1000;
     let page = 0;
     if (req.query) {
         if (req.query.page) {
@@ -24,7 +28,7 @@ exports.list = (req, res) => {
             page = Number.isInteger(req.query.page) ? req.query.page : 0;
         }
     }
-    UserModel.list(limit, page)
+    UserModel.list(limit, page,empresa)
         .then((result) => {
             res.status(200).send(result);
         })

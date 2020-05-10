@@ -62,9 +62,9 @@ exports.listByEmpresa = (empresaId,perPage, page) => {
     });
 };
 
-exports.list = (perPage, page) => {
+exports.list = (perPage, page,empresa) => {
     return new Promise((resolve, reject) => {
-        User.find()
+        User.find({empresa:empresa})
             .limit(perPage)
             .skip(perPage * page)
             .exec(function (err, users) {

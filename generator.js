@@ -67,6 +67,7 @@ function verPreguntas(){
         choices: [
           "String",
           "Number",
+          "Object",
           "Date",
           "Boolean",
           "Buffer",
